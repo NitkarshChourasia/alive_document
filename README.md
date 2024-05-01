@@ -86,9 +86,7 @@ Run as `docker run -it --mount src="$HOME/.cache",target=/root/.cache,type=bind 
 
 ## Test dataset
 
-# CHANGE THIS FILE NAME.
-
-For testing, this repository comes with [Constitution of USA](https://constitutioncenter.org/media/files/constitution.pdf) as an example file to use.
+For testing, this repository comes with [Orca_research_paper](SOURCE_DOCUMENTS/Orca_paper.pdf) as an example file to use.
 
 ## Ingesting your OWN Data.
 
@@ -125,8 +123,6 @@ python ingest.py
 # LEARN HOW SHOULD I ADD THIS FILE FROM LOCAL.
 
 You will see an output like this:
-
-# this is the image, here.
 
 Use the device type argument to specify a given device.
 To run on `cpu`
@@ -172,10 +168,7 @@ This will load the ingested vector store and embedding model. You will be presen
 > Enter a query:
 ```
 
-# TRY TO CHANGE THIS IMAGE TOO.
-
 After typing your question, hit enter. alive_document will take some time based on your hardware. You will get a response like this below.
----- here is the image
 
 Once the answer is generated, you can then ask another question without re-running the script, just wait for the prompt again.
 
