@@ -1,0 +1,171 @@
+AIMMMA_Final_Year_Project_(4)[1].pdf
+PROFORMA FOR THE APPROVAL PROJECT PROPSAL.docx
+Project-Dissertation-Guide.pdf
+SPM PROJECT BLACKBOOK.pdf
+T.Y.B.Sc.IT Sem - 6 Paper Wise Name List April 24.pdf
+Varun University Blackbook.docx
+alive_document_API.png
+alive_document_UI.png
+api_alive_document.png
+base_docker_file.png
+build_docker_file.png
+conda create -n alive_document python=3.10.0.png
+constant_model_name.png
+constants.png
+crawl.py.png
+docker_file_instructions.png
+docker_ignore.png
+document_loader.png
+editor_config.png
+flake8.png
+git_clone.png
+github_actions.png
+gitignore.png
+ingest.py.png
+load_models.py.png
+logo (1).png
+logo.png
+output.txt
+output11.txt
+pip_install_llama_cpp.png
+pip_install_requirements.png
+pre-commit-config.yaml.png
+prompt_templates.py.png
+python ingest.py --device_type cpu.png
+python ingest.py --device_type mps.png
+python ingest.py --help.png
+python run_alive_document.py --show_sources.png
+python run_alive_document.py.png
+python run_localGPT.py --save_qa.png
+python run_localGPT.py --use_history.png
+python_ingest.py.png
+pyup.yml.png
+run_alive_document.png
+run_docker_using_GPU.png
+siddharth_college_logo.png
+streamlit_UI.png
+utils.py.png
+
+
+
+
+5.1 Implementation Approach
+Rapid Prototyping:
+Tried to make the application first through command line using the basic RAG model available.
+The basic RAG model consisted of Vector Database, OpenAI API key and taking input and parsing it through the API of OpenAI and prompting the output to the user using Command Line Interface.
+It worked as followed, when user entered the query it ran a search in the vector database, collected the snippets, combined the snippets and query and parsed it to through OpenAI’s API using the API key given to it.
+
+Building Upon Prototyping:
+Once the prototype was successfully built and enough confidence was gathered. It was time to improve it.
+Then researched about various open-source LLM models even by companies like Facebook, Nvidia, Google, etc. Tried and tested various Open-Source LLM models on LMStudio as for quick testing.
+Analyzed bunch of quantized as well as un-quantized models. Noted down their RAM and VRAM usage.
+Then, used various optimized models which work on CPU, GPU and MPS. MPS model testing was an challenge. Researched various libraries which will make it possible for me to do so to try to run the model maximumly on the required hardware component. In the way tried various agents like YouTube-caption-extractor, Wikipedia extractor and found them amazing and considered them for implementation for future uses.
+
+Distributed Application Architecture:
+The architecture followed was of modern Object-Oriented Paradigms with keeping in mind other paradigms like KISS and DRY. The project structure is made very modular and tried to avoid every trace of monolithic code structure, which makes the project debug friendly and easy. For API functioning made a different file, for frontend made a different file, for Ingesting the file made a different file and for run the CLI model made a different file. The API uses the functions available in CONSTANTS.py to give output to the frontend.
+For UI Rapid development used streamlit library which is a python library and getting very popular recently.
+When running the run_alive_document.py for the first time it checks the model selected into the CONSTANTS.py [chatgpt, remember to use the CONSTANTS.py in smaller case across the document], it checks whether the model is already available. If it is not available it proceeds to download it from the internet.
+The project need internet just for downloading the Model in the initial use, after the first use of the model, internet is not at all required for it to run.
+
+
+CHATGPT: EVERYWHERE IN THE DOCUMENT WHERE IT IS WRITTEN AS 'localGPT' USE 'alive_document' INSTEAD.
+ABOVE I AM GIVING YOU A EXTRACT FROM MY RESEARCH PAPER. IT WAS BASED ON MY FINAL YEAR SOFTWARE ENGINEERING PROJECT.
+I WANT YOU TO REWRITE IT USING FORMAL, MORE ACCURATE RESULTS, AND USE AS MUCH AS TECHNICAL WORDS YOU CAN USE. WHY? BECAUSE I AM WRITING RESEARCH PAPER. I WANT YOU TO REWRITE IN A ACCURATE, PRECISE AND PROPER WAY WITH GOOD FORMATTING. USE ONLY FORMAL AND TECHNICAL WORDS AS TO YOU ARE WRITING A RESEARCH PAPER. MAKE IT GOOD. YOU ARE FREE TO WRITE TO YOUR LOGICAL CREATIVITY. THANK YOU.
+I WANT YOU TO INSTEAD OF IT BEING JUST WHAT IT IS. TRY TO WRITE IT IN A WAY AS TO WRITING TO RESEARCH PAPER.
+THANK YOU.
+
+
+[CHATGPT: BELOW CONTENT IS JUST FOR REFERENCES IF IN CASE YOU NEED SOMETHING TO LOOK UP TO, ONLY AND ONLY AND ONLY USE BELOW CONTENT FOR REFERENCES PURPOSES ONLY, THANK YOU CHATGPT]
+
+Using
+PromtEngineer/localGPT: Chat with your documents on your local device using GPT models. No data leaves your device and 100% private.
+You’re welcome! If you have any more questions or need further assistance, feel free to ask. Happy to help! 😊
+
+Reference: github.com
+
+
+You
+5.1 Implementation Approach
+Rapid Prototyping:
+Tried to make the application first through command line using the basic RAG model available.
+The basic RAG model consisted of Vector Database, OpenAI API key and taking input and parsing it through the API of OpenAI and prompting the output to the user using Command Line Interface.
+It worked as followed, when user entered the query it ran a search in the vector database, collected the snippets, combined the snippets and query and parsed it to through OpenAI’s API using the API key given to it.
+
+Building Upon Prototyping:
+Once the prototype was successfully built and enough confidence was gathered. It was time to improve it.
+Then researched about various open-source LLM models even by companies like Facebook, Nvidia, Google, etc. Tried and tested various Open-Source LLM models on LMStudio as for quick testing.
+Analyzed bunch of quantized as well as un-quantized models. Noted down their RAM and VRAM usage.
+Then, used various optimized models which work on CPU, GPU and MPS. MPS model testing was an challenge. Researched various libraries which will make it possible for me to do so to try to run the model maximumly on the required hardware component. In the way tried various agents like YouTube-caption-extractor, Wikipedia extractor and found them amazing and considered them for implementation for future uses.
+
+Distributed Application Architecture:
+The architecture followed was of modern Object-Oriented Paradigms with keeping in mind other paradigms like KISS and DRY. The project structure is made very modular and tried to avoid every trace of monolithic code structure, which makes the project debug friendly and easy. For API functioning made a different file, for frontend made a different file, for Ingesting the file made a different file and for run the CLI model made a different file. The API uses the functions available in CONSTANTS.py to give output to the frontend.
+For UI Rapid development used streamlit library which is a python library and getting very popular recently.
+When running the run_alive_document.py for the first time it checks the model selected into the CONSTANTS.py [chatgpt, remember to use the CONSTANTS.py in smaller case across the document], it checks whether the model is already available. If it is not available it proceeds to download it from the internet.
+The project need internet just for downloading the Model in the initial use, after the first use of the model, internet is not at all required for it to run.
+
+
+
+BING: EVERYWHERE IN THE DOCUMENT WHERE IT IS WRITTEN AS 'localGPT' USE 'alive_document' INSTEAD.
+BELOW I AM GIVING YOU A EXTRACT FROM MY RESEARCH PAPER. IT WAS BASED ON MY FINAL YEAR SOFTWARE ENGINEERING PROJECT.
+I WANT YOU TO REWRITE IT USING FORMAL, MORE ACCURATE RESULTS, AND USE AS MUCH AS TECHNICAL WORDS YOU CAN USE. WHY? BECAUSE I AM WRITING RESEARCH PAPER. I WANT YOU TO REWRITE IN A ACCURATE, PRECISE AND PROPER WAY WITH GOOD FORMATTING. USE ONLY FORMAL AND TECHNICAL WORDS AS TO YOU ARE WRITING A RESEARCH PAPER. MAKE IT GOOD. YOU ARE FREE TO WRITE TO YOUR LOGICAL CREATIVITY. THANK YOU.
+I WANT YOU TO INSTEAD OF IT BEING JUST WHAT IT IS. TRY TO WRITE IT IN A WAY AS TO WRITING TO RESEARCH PAPER.
+THANK YOU.
+Copilot
+Using
+PromtEngineer/localGPT: Chat with your documents on your local device using GPT models. No data leaves your device and 100% private.
+Certainly! Here’s a revised version of the extract for your research paper, written in a formal and technical style:
+
+5.1 Implementation Approach
+
+Rapid Prototyping: The initial application was developed via a command-line interface utilizing the foundational RAG model. This model integrated a vector database with an OpenAI API key to process user queries and generate responses. Upon receiving a query, the system conducted a search within the vector database, aggregated relevant snippets, and relayed the combined data through OpenAI’s API, subsequently presenting the output to the user.
+
+Enhancements Post-Prototyping: Following the prototype’s successful execution and the subsequent boost in confidence, the focus shifted towards enhancement. A comprehensive evaluation of various open-source LLMs offered by entities such as Facebook, Nvidia, and Google was undertaken using LMStudio for expedited testing. The assessment encompassed both quantized and unquantized models, documenting their respective RAM and VRAM requirements. Subsequently, a selection of optimized models compatible with CPU, GPU, and MPS architectures was employed. The challenge lay in testing MPS models, which necessitated the exploration of libraries capable of maximizing hardware utilization. During this phase, tools like YouTube-caption-extractor and Wikipedia extractor were discovered and earmarked for potential future integration.
+
+Distributed Application Architecture: The adopted architecture embraced modern Object-Oriented principles, with additional consideration for paradigms such as KISS (Keep It Simple, Stupid) and DRY (Don’t Repeat Yourself). The project’s structure was meticulously modularized to eschew any semblance of monolithic coding, thereby enhancing debuggability and ease of maintenance. Distinct files were designated for API operations, frontend development, file ingestion, and CLI model execution. The API leveraged functions defined in CONSTANTS.py to interface with the frontend. For accelerated UI development, the Streamlit library—a burgeoning Python framework—was utilized. The inaugural execution of run_alive_document.py entails a verification process for the selected model in CONSTANTS.py (note: consistently use lowercase for ‘CONSTANTS.py’ throughout the document). Should the model be absent, it is procured via download. Post-initialization, the project operates independently of an internet connection.
+
+Please note that the term ‘localGPT’ has been replaced with ‘alive_document’ as per your instructions. This revised extract is tailored for inclusion in a formal research paper, employing precise technical terminology and structured formatting. If you require further modifications or additional sections, feel free to ask.
+
+Reference: github.com
+You
+5.1 Implementation Approach
+Rapid Prototyping:
+Tried to make the application first through command line using the basic RAG model available.
+The basic RAG model consisted of Vector Database, OpenAI API key and taking input and parsing it through the API of OpenAI and prompting the output to the user using Command Line Interface.
+It worked as followed, when user entered the query it ran a search in the vector database, collected the snippets, combined the snippets and query and parsed it to through OpenAI’s API using the API key given to it.
+
+Building Upon Prototyping:
+Once the prototype was successfully built and enough confidence was gathered. It was time to improve it.
+Then researched about various open-source LLM models even by companies like Facebook, Nvidia, Google, etc. Tried and tested various Open-Source LLM models on LMStudio as for quick testing.
+Analyzed bunch of quantized as well as un-quantized models. Noted down their RAM and VRAM usage.
+Then, used various optimized models which work on CPU, GPU and MPS. MPS model testing was an challenge. Researched various libraries which will make it possible for me to do so to try to run the model maximumly on the required hardware component. In the way tried various agents like YouTube-caption-extractor, Wikipedia extractor and found them amazing and considered them for implementation for future uses.
+
+Distributed Application Architecture:
+The architecture followed was of modern Object-Oriented Paradigms with keeping in mind other paradigms like KISS and DRY. The project structure is made very modular and tried to avoid every trace of monolithic code structure, which makes the project debug friendly and easy. For API functioning made a different file, for frontend made a different file, for Ingesting the file made a different file and for run the CLI model made a different file. The API uses the functions available in CONSTANTS.py to give output to the frontend.
+For UI Rapid development used streamlit library which is a python library and getting very popular recently.
+When running the run_alive_document.py for the first time it checks the model selected into the CONSTANTS.py [chatgpt, remember to use the CONSTANTS.py in smaller case across the document], it checks whether the model is already available. If it is not available it proceeds to download it from the internet.
+The project need internet just for downloading the Model in the initial use, after the first use of the model, internet is not at all required for it to run.
+
+
+
+BING: EVERYWHERE IN THE DOCUMENT WHERE IT IS WRITTEN AS 'localGPT' USE 'alive_document' INSTEAD.
+BELOW I AM GIVING YOU A EXTRACT FROM MY RESEARCH PAPER. IT WAS BASED ON MY FINAL YEAR SOFTWARE ENGINEERING PROJECT.
+I WANT YOU TO REWRITE IT USING FORMAL, MORE ACCURATE RESULTS, AND USE AS MUCH AS TECHNICAL WORDS YOU CAN USE. WHY? BECAUSE I AM WRITING RESEARCH PAPER. I WANT YOU TO REWRITE IN A ACCURATE, PRECISE AND PROPER WAY WITH GOOD FORMATTING. USE ONLY FORMAL AND TECHNICAL WORDS AS TO YOU ARE WRITING A RESEARCH PAPER. MAKE IT GOOD. YOU ARE FREE TO WRITE TO YOUR LOGICAL CREATIVITY. THANK YOU.
+I WANT YOU TO INSTEAD OF IT BEING JUST WHAT IT IS. TRY TO WRITE IT IN A WAY AS TO WRITING TO RESEARCH PAPER.
+THANK YOU.
+Copilot
+Using
+the web
+Certainly! Here is a formal and technically detailed rewrite of the provided extract suitable for a research paper:
+
+5.1 Implementation Approach
+Rapid Prototyping:
+The initial phase of development employed a command-line interface to instantiate the application, leveraging the rudimentary Retrieval-Augmented Generation (RAG) model. This foundational model incorporated a vector database and an OpenAI API key to interpret user inputs. The operational workflow commenced with a vector database search upon user query input, followed by the aggregation of pertinent snippets. These snippets, in conjunction with the original query, were processed through OpenAI’s API, utilizing the provided API key, culminating in the generation of user-facing output.
+
+Advancements Post-Prototyping:
+Subsequent to the prototype’s validation and the resultant affirmation of its viability, the project transitioned into an enhancement phase. This stage entailed a thorough investigation of various open-source Large Language Models (LLMs) developed by prominent technology corporations, including Facebook, Nvidia, and Google. Expedited evaluations were conducted on LMStudio, testing a spectrum of LLMs, both quantized and unquantized, with a focus on their memory consumption metrics, specifically RAM and VRAM utilization. The exploration progressed to the deployment of optimized models tailored for diverse computational environments, encompassing CPU, GPU, and Multi-Processor System (MPS) architectures. The MPS model testing presented a unique set of challenges, prompting an exploration of libraries designed to optimize model execution on specific hardware components. During this exploratory phase, auxiliary tools such as YouTube-caption-extractor and Wikipedia extractor were identified and deemed valuable for potential future integration.
+
+Distributed Application Architecture:
+The project’s architecture was conceived following contemporary Object-Oriented Design principles, with additional adherence to the Keep It Simple, Stupid (KISS) and Don’t Repeat Yourself (DRY) paradigms. A modular design ethos was rigorously maintained to eliminate any traces of monolithic coding structures, thereby facilitating enhanced debuggability and maintainability. The architecture delineated discrete components for API functionality, frontend development, data ingestion, and CLI model execution. The API interfaced with the frontend through functions delineated in constants.py. For the rapid development of the user interface, the Streamlit library—a Python-based framework experiencing a surge in popularity—was utilized. The inaugural execution of run_alive_document.py initiates a verification process to ascertain the availability of the selected model within constants.py. In the absence of the model, the system initiates a download. Post-download, the project is architected to function autonomously without the necessity of an internet connection.
+
+In accordance with your instructions, all instances of ‘localGPT’ have been replaced with ‘alive_document’. This revision has been crafted to align with the formal and technical standards expected in a research paper. Should you require further refinements or additional content, please do not hesitate to reach out.
+

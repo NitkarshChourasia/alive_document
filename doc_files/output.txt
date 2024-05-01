@@ -1,0 +1,79 @@
+::::File Format Related::::
+siddharth_college_logo.png
+logo (1).png
+logo.png
+output.txt
+AIMMMA_Final_Year_Project_(4)[1].pdf
+PROFORMA FOR THE APPROVAL PROJECT PROPSAL.docx
+Project-Dissertation-Guide.pdf
+SPM PROJECT BLACKBOOK.pdf
+T.Y.B.Sc.IT Sem - 6 Paper Wise Name List April 24.pdf
+Varun University Blackbook.docx
+
+
+::::Main Program Files::::
+constants.png
+ingest.py.png
+load_models.py.png
+
+
+
+api_alive_document.png
+streamlit_UI.png
+
+
+crawl.py.png
+docker_file_instructions.png
+prompt_templates.py.png
+document_loader.png
+
+
+utils.py.png
+
+
+::::To-get-up-running-files::::
+git_clone.png
+conda create -n alive_document python=3.10.0.png and running it
+pip_install_requirements.png
+pip_install_llama_cpp.png
+Installing LLAMA-CPP
+
+
+
+base_docker_file.png
+build_docker_file.png
+run_docker_using_GPU.png
+
+constant_model_name.png
+
+::::Results and Discussions::::
+python ingest.py --device_type cpu.png
+python ingest.py --device_type mps.png
+python ingest.py --help.png
+
+run_alive_document.png
+python run_alive_document.py --show_sources.png
+python run_alive_document.py.png
+python run_alive_document.py --save_qa.png
+python run_alive_document.py --use_history.png
+
+
+
+alive_document_API.png
+alive_document_UI.png
+
+
+::::Maintainer Files::::
+github_actions.png
+pre-commit-config.yaml.png
+gitignore.png
+
+editor_config.png
+docker_ignore.png
+flake8.png
+pyup.yml.png
+
+
+
+
+

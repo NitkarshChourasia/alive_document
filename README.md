@@ -1,151 +1,324 @@
-# alive_document
-Ask questions to your documents without an internet connection, using the power of LLMs. 100% private, no data leaves your execution environment at any point. You can ingest documents and ask questions without an internet connection!
+# alive_document : Secure, Local Conversations with Your Documents 🌐
 
-Built with [LangChain](https://github.com/hwchase17/langchain), [GPT4All](https://github.com/nomic-ai/gpt4all), [LlamaCpp](https://github.com/ggerganov/llama.cpp), [Chroma](https://www.trychroma.com/) and [SentenceTransformers](https://www.sbert.net/).
+**alive_document** is an open-source initiative that allows you to converse with your documents without compromising your privacy. With everything running locally, you can be assured that no data ever leaves your computer. Dive into the world of secure, local document interactions with alive_document.
 
-<img width="902" alt="demo" src="https://user-images.githubusercontent.com/721666/236942256-985801c9-25b9-48ef-80be-3acbb4575164.png">
+## Features 🌟
 
-# Environment Setup
-In order to set your environment up to run the code here, first install all requirements:
+- **Utmost Privacy**: Your data remains on your computer, ensuring 100% security.
+- **Versatile Model Support**: Seamlessly integrate a variety of open-source models, including HF, GPTQ, GGML, and GGUF.
+- **Diverse Embeddings**: Choose from a range of open-source embeddings.
+- **Reuse Your LLM**: Once downloaded, reuse your LLM without the need for repeated downloads.
+- **Chat History**: Remembers your previous conversations (in a session).
+- **API**: alive_document has an API that you can use for building RAG Applications.
+- **Graphical Interface**: alive_document comes with two GUIs, one uses the API and the other is standalone (based on streamlit).
+- **GPU, CPU & MPS Support**: Supports multiple platforms out of the box, Chat with your data using `CUDA`, `CPU` or `MPS` and more!
+
+## Technical Details 🛠️
+
+By selecting the right local models and the power of `LangChain` you can run the entire RAG pipeline locally, without any data leaving your environment, and with reasonable performance.
+
+- `ingest.py` uses `LangChain` tools to parse the document and create embeddings locally using `InstructorEmbeddings`. It then stores the result in a local vector database using `Chroma` vector store.
+- `run_alive_document.py` uses a local LLM to understand questions and create answers. The context for the answers is extracted from the local vector store using a similarity search to locate the right piece of context from the docs.
+- You can replace this local LLM with any other LLM from the HuggingFace. Make sure whatever LLM you select is in the HF format.
+
+## Built Using 🧩
+
+- [LangChain](https://github.com/hwchase17/langchain)
+- [HuggingFace LLMs](https://huggingface.co/models)
+- [InstructorEmbeddings](https://instructor-embedding.github.io/)
+- [LLAMACPP](https://github.com/abetlen/llama-cpp-python)
+- [ChromaDB](https://www.trychroma.com/)
+- [Streamlit](https://streamlit.io/)
+
+# Environment Setup 🌍
+
+1. 📥 Clone the repo using git:
 
 ```shell
-pip3 install -r requirements.txt
+git clone https://github.com/NitkarshChourasia/alive_document.git
 ```
 
-*Alternative requirements installation with poetry*
-1. Install [poetry](https://python-poetry.org/docs/#installation)
+2. 🐍 Install [conda](https://www.anaconda.com/download) for virtual environment management. Create and activate a new virtual environment.
 
-2. Run this commands
 ```shell
-cd alive_document
-poetry install
-poetry shell
+conda create -n alive_document python=3.10.0
+conda activate alive_document
 ```
 
-Then, download the LLM model and place it in a directory of your choice:
-- LLM: default to [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). If you prefer a different GPT4All-J compatible model, just download it and reference it in your `.env` file.
+3. 🛠️ Install the dependencies using pip
 
-Copy the `example.env` template into `.env`
+To set up your environment to run the code, first install all requirements:
+
 ```shell
-cp example.env .env
+pip install -r requirements.txt
 ```
 
-and edit the variables appropriately in the `.env` file.
-```
-MODEL_TYPE: supports LlamaCpp or GPT4All
-PERSIST_DIRECTORY: is the folder you want your vectorstore in
-MODEL_PATH: Path to your GPT4All or LlamaCpp supported LLM
-MODEL_N_CTX: Maximum token limit for the LLM model
-MODEL_N_BATCH: Number of tokens in the prompt that are fed into the model at a time. Optimal value differs a lot depending on the model (8 works well for GPT4All, and 1024 is better for LlamaCpp)
-EMBEDDINGS_MODEL_NAME: SentenceTransformers embeddings model name (see https://www.sbert.net/docs/pretrained_models.html)
-TARGET_SOURCE_CHUNKS: The amount of chunks (sources) that will be used to answer a question
+**_Installing LLAMA-CPP :_**
+
+alive_document uses [LlamaCpp-Python](https://github.com/abetlen/llama-cpp-python) for GGML (you will need llama-cpp-python <=0.1.76) and GGUF (llama-cpp-python >=0.1.83) models.
+
+If you want to use BLAS or Metal with [llama-cpp](https://github.com/abetlen/llama-cpp-python#installation-with-openblas--cublas--clblast--metal) you can set appropriate flags:
+
+For `NVIDIA` GPUs support, use `cuBLAS`
+
+```shell
+# Example: cuBLAS
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install llama-cpp-python==0.1.83 --no-cache-dir
 ```
 
-Note: because of the way `langchain` loads the `SentenceTransformers` embeddings, the first time you run the script it will require internet connection to download the embeddings model itself.
+For Apple Metal (`M1/M2`) support, use
+
+```shell
+# Example: METAL
+CMAKE_ARGS="-DLLAMA_METAL=on"  FORCE_CMAKE=1 pip install llama-cpp-python==0.1.83 --no-cache-dir
+```
+
+For more details, please refer to [llama-cpp](https://github.com/abetlen/llama-cpp-python#installation-with-openblas--cublas--clblast--metal)
+
+## Docker 🐳
+
+Installing the required packages for GPU inference on NVIDIA GPUs, like gcc 11 and CUDA 11, may cause conflicts with other packages in your system.
+As an alternative to Conda, you can use Docker with the provided Dockerfile.
+It includes CUDA, your system just needs Docker, BuildKit, your NVIDIA GPU driver and the NVIDIA container toolkit.
+Build as `docker build -t alive_document .`, requires BuildKit.
+Docker BuildKit does not support GPU during _docker build_ time right now, only during _docker run_.
+Run as `docker run -it --mount src="$HOME/.cache",target=/root/.cache,type=bind --gpus=all alive_document`.
 
 ## Test dataset
-This repo uses a [Advanced Web Programming TextBook](https://www.github.com/NitkarshChourasia) as an example.
 
-## Instructions for ingesting your own dataset
+# CHANGE THIS FILE NAME.
 
-Put any and all your files into the `source_documents` directory
+For testing, this repository comes with [Constitution of USA](https://constitutioncenter.org/media/files/constitution.pdf) as an example file to use.
 
-The supported extensions are:
+## Ingesting your OWN Data.
 
-   - `.csv`: CSV,
-   - `.docx`: Word Document,
-   - `.doc`: Word Document,
-   - `.enex`: EverNote,
-   - `.eml`: Email,
-   - `.epub`: EPub,
-   - `.html`: HTML File,
-   - `.md`: Markdown,
-   - `.msg`: Outlook Message,
-   - `.odt`: Open Document Text,
-   - `.pdf`: Portable Document Format (PDF),
-   - `.pptx` : PowerPoint Document,
-   - `.ppt` : PowerPoint Document,
-   - `.txt`: Text file (UTF-8),
+Put your files in the `SOURCE_DOCUMENTS` folder. You can put multiple folders within the `SOURCE_DOCUMENTS` folder and the code will recursively read your files.
+
+### Support file formats:
+
+alive_document currently supports the following file formats. alive_document uses `LangChain` for loading these file formats. The code in `constants.py` uses a `DOCUMENT_MAP` dictionary to map a file format to the corresponding loader. In order to add support for another file format, simply add this dictionary with the file format and the corresponding loader from [LangChain](https://python.langchain.com/docs/modules/data_connection/document_loaders/).
+
+```shell
+DOCUMENT_MAP = {
+    ".txt": TextLoader,
+    ".md": TextLoader,
+    ".py": TextLoader,
+    ".pdf": PDFMinerLoader,
+    ".csv": CSVLoader,
+    ".xls": UnstructuredExcelLoader,
+    ".xlsx": UnstructuredExcelLoader,
+    ".docx": Docx2txtLoader,
+    ".doc": Docx2txtLoader,
+}
+```
+
+### Ingest
 
 Run the following command to ingest all the data.
+
+If you have `cuda` setup on your system.
 
 ```shell
 python ingest.py
 ```
 
-Output should look like this:
+# LEARN HOW SHOULD I ADD THIS FILE FROM LOCAL.
 
-```shell
-Creating new vectorstore
-Loading documents from source_documents
-Loading new documents: 100%|██████████████████████| 1/1 [00:01<00:00,  1.73s/it]
-Loaded 1 new documents from source_documents
-Split into 90 chunks of text (max. 500 tokens each)
-Creating embeddings. May take some minutes...
-Using embedded DuckDB with persistence: data will be stored in: db
-Ingestion complete! You can now run alive_document.py to query your documents
+You will see an output like this:
+
+# this is the image, here.
+
+Use the device type argument to specify a given device.
+To run on `cpu`
+
+```sh
+python ingest.py --device_type cpu
 ```
 
-It will create a `db` folder containing the local vectorstore. Will take 20-30 seconds per document, depending on the size of the document.
-You can ingest as many documents as you want, and all will be accumulated in the local embeddings database.
-If you want to start from an empty database, delete the `db` folder.
+To run on `M1/M2`
 
-Note: during the ingest process no data leaves your local environment. You could ingest without an internet connection, except for the first time you run the ingest script, when the embeddings model is downloaded.
+```sh
+python ingest.py --device_type mps
+```
+
+Use help for a full list of supported devices.
+
+```sh
+python ingest.py --help
+```
+
+This will create a new folder called `DB` and use it for the newly created vector store. You can ingest as many documents as you want, and all will be accumulated in the local embeddings database.
+If you want to start from an empty database, delete the `DB` and reingest your documents.
+
+Note: When you run this for the first time, it will need internet access to download the embedding model (default: `Instructor Embedding`). In the subsequent runs, no data will leave your local environment and you can ingest data without internet connection.
 
 ## Ask questions to your documents, locally!
-In order to ask a question, run a command like:
+
+In order to chat with your documents, run the following command (by default, it will run on `cuda`).
 
 ```shell
-python alive_document.py
+python run_alive_document.py
 ```
 
-And wait for the script to require your input.
+You can also specify the device type just like `ingest.py`
 
-```plaintext
+```shell
+python run_alive_document.py --device_type mps # to run on Apple silicon
+```
+
+This will load the ingested vector store and embedding model. You will be presented with a prompt:
+
+```shell
 > Enter a query:
 ```
 
-Hit enter. You'll need to wait 20-30 seconds (depending on your machine) while the LLM model consumes the prompt and prepares the answer. Once done, it will print the answer and the 4 sources it used as context from your documents; you can then ask another question without re-running the script, just wait for the prompt again.
+# TRY TO CHANGE THIS IMAGE TOO.
 
-Note: you could turn off your internet connection, and the script inference would still work. No data gets out of your local environment.
+After typing your question, hit enter. alive_document will take some time based on your hardware. You will get a response like this below.
+---- here is the image
+
+Once the answer is generated, you can then ask another question without re-running the script, just wait for the prompt again.
+
+**_Note:_** When you run this for the first time, it will need internet connection to download the LLM (default: `TheBloke/Llama-2-7b-Chat-GGUF`). After that you can turn off your internet connection, and the script inference would still work. No data gets out of your local environment.
 
 Type `exit` to finish the script.
 
+### Extra Options with run_alive_document.py
 
-### CLI
-The script also supports optional command-line arguments to modify its behavior. You can see a full list of these arguments by running the command ```python alive_document.py --help``` in your terminal.
+You can use the `--show_sources` flag with `run_alive_document.py` to show which chunks were retrieved by the embedding model. By default, it will show 4 different sources/chunks. You can change the number of sources/chunks
 
+```shell
+python run_alive_document.py --show_sources
+```
 
-# How does it work?
-Selecting the right local models and the power of `LangChain` you can run the entire pipeline locally, without any data leaving your environment, and with reasonable performance.
+Another option is to enable chat history. **_Note_**: This is disabled by default and can be enabled by using the `--use_history` flag. The context window is limited so keep in mind enabling history will use it and might overflow.
 
-- `ingest.py` uses `LangChain` tools to parse the document and create embeddings locally using `HuggingFaceEmbeddings` (`SentenceTransformers`). It then stores the result in a local vector database using `Chroma` vector store.
-- `alive_document.py` uses a local LLM based on `GPT4All-J` or `LlamaCpp` to understand questions and create answers. The context for the answers is extracted from the local vector store using a similarity search to locate the right piece of context from the docs.
-- `GPT4All-J` wrapper was introduced in LangChain 0.0.162.
+```shell
+python run_alive_document.py --use_history
+```
+
+You can store user questions and model responses with flag `--save_qa` into a csv file `/local_chat_history/qa_log.csv`. Every interaction will be stored.
+
+```shell
+python run_alive_document.py --save_qa
+```
+
+# Run the Graphical User Interface
+
+1. Open `constants.py` in an editor of your choice and depending on choice add the LLM you want to use. By default, the following model will be used:
+
+   ```shell
+   MODEL_ID = "TheBloke/Llama-2-7b-Chat-GGUF"
+   MODEL_BASENAME = "llama-2-7b-chat.Q4_K_M.gguf"
+   ```
+
+2. Open up a terminal and activate your python environment that contains the dependencies installed from requirements.txt.
+
+3. Navigate to the `/alive_document` directory.
+
+4. Run the following command `python run_alive_document_API.py`. The API should being to run.
+
+5. Wait until everything has loaded in. You should see something like `INFO:werkzeug:Press CTRL+C to quit`.
+
+6. Open up a second terminal and activate the same python environment.
+
+7. Navigate to the `/alive_document/alive_document` directory.
+
+8. Run the command `python alive_document.py`.
+
+9. Open up a web browser and go the address `http://localhost:5111/`.
+
+# How to select different LLM models?
+
+To change the models you will need to set both `MODEL_ID` and `MODEL_BASENAME`.
+
+1. Open up `constants.py` in the editor of your choice.
+2. Change the `MODEL_ID` and `MODEL_BASENAME`. If you are using a quantized model (`GGML`, `GPTQ`, `GGUF`), you will need to provide `MODEL_BASENAME`. For unquantized models, set `MODEL_BASENAME` to `NONE`
+3. There are a number of example models from HuggingFace that have already been tested to be run with the original trained model (ending with HF or have a .bin in its "Files and versions"), and quantized models (ending with GPTQ or have a .no-act-order or .safetensors in its "Files and versions").
+4. For models that end with HF or have a .bin inside its "Files and versions" on its HuggingFace page.
+
+   - Make sure you have a `MODEL_ID` selected. For example -> `MODEL_ID = "TheBloke/guanaco-7B-HF"`
+   - Go to the [HuggingFace Repo](https://huggingface.co/TheBloke/guanaco-7B-HF)
+
+5. For models that contain GPTQ in its name and or have a .no-act-order or .safetensors extension inside its "Files and versions on its HuggingFace page.
+
+   - Make sure you have a `MODEL_ID` selected. For example -> model_id = `"TheBloke/wizardLM-7B-GPTQ"`
+   - Got to the corresponding [HuggingFace Repo](https://huggingface.co/TheBloke/wizardLM-7B-GPTQ) and select "Files and versions".
+   - Pick one of the model names and set it as `MODEL_BASENAME`. For example -> `MODEL_BASENAME = "wizardLM-7B-GPTQ-4bit.compat.no-act-order.safetensors"`
+
+6. Follow the same steps for `GGUF` and `GGML` models.
+
+# GPU and VRAM Requirements
+
+Below is the VRAM requirement for different models depending on their size (Billions of parameters). The estimates in the table does not include VRAM used by the Embedding models - which use an additional 2GB-7GB of VRAM depending on the model.
+
+| Mode Size (B) | float32  | float16  | GPTQ 8bit       | GPTQ 4bit        |
+| ------------- | -------- | -------- | --------------- | ---------------- |
+| 7B            | 28 GB    | 14 GB    | 7 GB - 9 GB     | 3.5 GB - 5 GB    |
+| 13B           | 52 GB    | 26 GB    | 13 GB - 15 GB   | 6.5 GB - 8 GB    |
+| 32B           | 130 GB   | 65 GB    | 32.5 GB - 35 GB | 16.25 GB - 19 GB |
+| 65B           | 260.8 GB | 130.4 GB | 65.2 GB - 67 GB | 32.6 GB - 35 GB  |
 
 # System Requirements
 
 ## Python Version
+
 To use this software, you must have Python 3.10 or later installed. Earlier versions of Python will not compile.
 
 ## C++ Compiler
+
 If you encounter an error while building a wheel during the `pip install` process, you may need to install a C++ compiler on your computer.
 
 ### For Windows 10/11
+
 To install a C++ compiler on Windows 10/11, follow these steps:
 
 1. Install Visual Studio 2022.
 2. Make sure the following components are selected:
-   * Universal Windows Platform development
-   * C++ CMake tools for Windows
+   - Universal Windows Platform development
+   - C++ CMake tools for Windows
 3. Download the MinGW installer from the [MinGW website](https://sourceforge.net/projects/mingw/).
-4. Run the installer and select the `gcc` component.
+4. Run the installer and select the "gcc" component.
 
-## Mac Running Intel
-#When runninadsfg a Mac with Intel hardwfafot M1), you may run into _clang: error: tafdahe clang compiler does not support '-mfdrch=native'_ during pip install.
-afafd f nitka rsh
+### NVIDIA Driver's Issues:
 
-If so set your archflags during pip install. eg: _ARCHFLAGS="-arch x86_64" pip3 install -r requirements.txt_
+Follow this [page](https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-ubuntu-22-04) to install NVIDIA Drivers.
 
 # Disclaimer
-This is a test project to validate the feasibility of a fully private solution for question answering using LLMs and Vector embeddings. It is not production ready, and it is not meant to be used in production. The models selection is not optimized for performance, but for privacy; but it is possible to use different models and vectorstores to improve performance.
+
+This is a test project to validate the feasibility of a fully local solution for question answering using LLMs and Vector embeddings. It is not production ready, and it is not meant to be used in production. Vicuna-7B is based on the Llama model so that has the original Llama license.
+
+# Common Errors
+
+- [Torch not compatible with CUDA enabled](https://github.com/pytorch/pytorch/issues/30664)
+
+  - Get CUDA version
+    ```shell
+    nvcc --version
+    ```
+    ```shell
+    nvidia-smi
+    ```
+  - Try installing PyTorch depending on your CUDA version
+    ```shell
+       conda install -c pytorch torchvision cudatoolkit=10.1 pytorch
+    ```
+  - If it doesn't work, try reinstalling
+    ```shell
+       pip uninstall torch
+       pip cache purge
+       pip install torch -f https://download.pytorch.org/whl/torch_stable.html
+    ```
+
+- [ERROR: pip's dependency resolver does not currently take into account all the packages that are installed](https://stackoverflow.com/questions/72672196/error-pips-dependency-resolver-does-not-currently-take-into-account-all-the-pa/76604141#76604141)
+  ```shell
+     pip install h5py
+     pip install typing-extensions
+     pip install wheel
+  ```
+- [Failed to import transformers](https://github.com/huggingface/transformers/issues/11262)
+  - Try re-install
+    ```shell
+       conda uninstall tokenizers, transformers
+       pip install transformers
+    ```

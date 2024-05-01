@@ -1,0 +1,36 @@
+{
+  "uuids": {
+    "phone_id": "a852ac66-86f5-40f4-9416-555809f8b31d",
+    "uuid": "5a5096c9-ab43-4258-85b0-b7513e072e78",
+    "client_session_id": "bf795d91-bbb1-469f-87ae-ae78e7257e79",
+    "advertising_id": "8eb5faea-079b-4c13-972f-110f2db5fd08",
+    "device_id": "android-cee0ace5d2bc6602"
+  },
+  "cookie": {
+    "csrftoken": "ZAoqX7cY0271gztS545XqtES7XS7EUsK",
+    "mid": "ZhRY-QABAAEkJWq7dum74kXmRCKC",
+    "sessionid": "48143284178%3AL7twlEX2HX1QuN%3A16%3AAYfdwmkoX3nIXAeK9ck0in0JVVyUwhZyZoKrTsj5og",
+    "ds_user_id": "48143284178",
+    "shbid": "\"14705\\05448143284178\\0541744145537:01f795403c907a3729ecad9ad5c6d144855df093f3e0e972bad72c015af4f7e047440ff7\"",
+    "shbts": "\"1712609537\\05448143284178\\0541744145537:01f7e3933e81301ba539aef3281fea2c36e3daccce118dca98853645daebd2398a4fa5be\"",
+    "rur": "\"LDC\\05448143284178\\0541744145574:01f721280bc623ce2263febd09467a5d3aca22d6155c2aa117b10c84de2fae0647eb3b29\"",
+    "ig_direct_region_hint": "\"FRC\\05448143284178\\0541744145568:01f7cfb03ca7e893cc4af3de418e392b0ff7b462d94218cd78846742c6fb707cd809f0c4\""
+  },
+  "timing_value": {
+    "last_login": 1712609537.8368611,
+    "last_experiments": 1712609537.8378434
+  },
+  "device_settings": {
+    "app_version": "117.0.0.28.123",
+    "android_version": "28",
+    "android_release": "9.0",
+    "dpi": "420dpi",
+    "resolution": "1080x1920",
+    "manufacturer": "OnePlus",
+    "device": "ONEPLUS A3003",
+    "model": "OnePlus3",
+    "cpu": "qcom",
+    "version_code": "180322800"
+  },
+  "user_agent": "Instagram 117.0.0.28.123 Android (28/9.0; 420dpi; 1080x1920; OnePlus; ONEPLUS A3003; OnePlus3; qcom; en_US; 180322800)"
+}
